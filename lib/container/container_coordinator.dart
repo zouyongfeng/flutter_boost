@@ -24,6 +24,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_boost/AIOService/NavigationService/service/NavigationService.dart';
 import 'package:flutter_boost/container/boost_container.dart';
 import 'package:flutter_boost/flutter_boost.dart';
@@ -143,6 +144,16 @@ class ContainerCoordinator implements NativePageContainerEventHandler {
 
     performContainerLifeCycle(_createContainerSettings(name, params, pageId),
         ContainerLifeCycle.Appear);
+
+    try {
+      final SemanticsOwner owner =
+          WidgetsBinding.instance.pipelineOwner.semanticsOwner;
+      final SemanticsNode root = owner.rootSemanticsNode;
+      root.detach();
+      root.attach(owner);
+    } catch (e) {
+      Logger.error(e.toString());
+    }
 
     Logger.log(
         'native containner did show,\nmanager dump:\n${FlutterBoost.containerManager?.dump()}');

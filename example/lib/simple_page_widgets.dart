@@ -82,66 +82,77 @@ class FlutterRouteWidget extends StatelessWidget {
             alignment: AlignmentDirectional.center,
           ),
           Expanded(child: Container()),
-          InkWell(
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.all(8.0),
-                color: Colors.yellow,
-                child: Text(
-                  'open native page',
-                  style: TextStyle(fontSize: 22.0, color: Colors.black),
-                )),
+          Semantics(
+              child: InkWell(
+                child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
+                    color: Colors.yellow,
+                    child: Text(
+                      'open native page',
+                      style: TextStyle(fontSize: 22.0, color: Colors.black),
+                    )),
 
-            ///后面的参数会在native的IPlatform.startActivity方法回调中拼接到url的query部分。
-            ///例如：sample://nativePage?aaa=bbb
-            onTap: () =>
-                FlutterBoost.singleton.openPage("sample://nativePage", {
+                ///后面的参数会在native的IPlatform.startActivity方法回调中拼接到url的query部分。
+                ///例如：sample://nativePage?aaa=bbb
+                onTap: () =>
+                    FlutterBoost.singleton.openPage("sample://nativePage", {
                   "query": {"aaa": "bbb"}
                 }),
-          ),
-          InkWell(
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.all(8.0),
-                color: Colors.yellow,
-                child: Text(
-                  'open flutter page',
-                  style: TextStyle(fontSize: 22.0, color: Colors.black),
-                )),
+              ),
+              value: "open native page"),
+          Semantics(
+            child: InkWell(
+              child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
+                  color: Colors.yellow,
+                  child: Text(
+                    'open flutter page',
+                    style: TextStyle(fontSize: 22.0, color: Colors.black),
+                  )),
 
-            ///后面的参数会在native的IPlatform.startActivity方法回调中拼接到url的query部分。
-            ///例如：sample://nativePage?aaa=bbb
-            onTap: () =>
-                FlutterBoost.singleton.openPage("sample://flutterPage", {
-                  "query": {"aaa": "bbb"}
-                }),
+              ///后面的参数会在native的IPlatform.startActivity方法回调中拼接到url的query部分。
+              ///例如：sample://nativePage?aaa=bbb
+              onTap: () =>
+                  FlutterBoost.singleton.openPage("sample://flutterPage", {
+                "query": {"aaa": "bbb"}
+              }),
+            ),
+            value: "open flutter page",
           ),
-          InkWell(
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.all(8.0),
-                color: Colors.yellow,
-                child: Text(
-                  'push flutter widget',
-                  style: TextStyle(fontSize: 22.0, color: Colors.black),
-                )),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => PushWidget()));
-            },
+          Semantics(
+            child: InkWell(
+              child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
+                  color: Colors.yellow,
+                  child: Text(
+                    'push flutter widget',
+                    style: TextStyle(fontSize: 22.0, color: Colors.black),
+                  )),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => PushWidget()));
+              },
+            ),
+            value: 'push flutter widget',
           ),
-          InkWell(
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 80.0),
-                color: Colors.yellow,
-                child: Text(
-                  'open flutter fragment page',
-                  style: TextStyle(fontSize: 22.0, color: Colors.black),
-                )),
-            onTap: () => FlutterBoost.singleton
-                .openPage("sample://flutterFragmentPage", {}),
-          )
+          Semantics(
+            child: InkWell(
+              child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 80.0),
+                  color: Colors.yellow,
+                  child: Text(
+                    'open flutter fragment page',
+                    style: TextStyle(fontSize: 22.0, color: Colors.black),
+                  )),
+              onTap: () => FlutterBoost.singleton
+                  .openPage("sample://flutterFragmentPage", {}),
+            ),
+            value: 'open flutter fragment page',
+          ),
         ],
       ),
     );
@@ -260,6 +271,6 @@ class _PushWidgetState extends State<PushWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterRouteWidget(message:"Pushed Widget");
+    return FlutterRouteWidget(message: "Pushed Widget");
   }
 }
